@@ -1,4 +1,4 @@
-# 🚫 Remove Shorts for Safari
+# 🚫 Remove YouTube Shorts for Safari
 
 A lightweight Safari Web Extension that removes YouTube Shorts from your browsing experience on macOS.
 
