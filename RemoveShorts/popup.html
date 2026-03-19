@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 280px;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+      background: #1a1a1e;
+      color: #f0f0f2;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .header svg {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+
+    .header h1 {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      color: #f0f0f2;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #2a2a2f;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+    }
+
+    .toggle-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #c8c8cc;
+    }
+
+    /* macOS-style toggle */
+    .toggle {
+      position: relative;
+      width: 42px;
+      height: 26px;
+      cursor: pointer;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-track {
+      position: absolute;
+      inset: 0;
+      background: #48484a;
+      border-radius: 13px;
+      transition: background 0.25s ease;
+    }
+
+    .toggle input:checked + .toggle-track {
+      background: #ff3b30;
+    }
+
+    .toggle-thumb {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 22px;
+      height: 22px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.25s ease;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .toggle input:checked ~ .toggle-thumb {
+      transform: translateX(16px);
+    }
+
+    .status {
+      text-align: center;
+      font-size: 12px;
+      color: #8e8e93;
+      padding: 6px 0 2px;
+    }
+
+    .status span {
+      font-weight: 600;
+    }
+
+    .status.active span {
+      color: #ff3b30;
+    }
+
+    .status.inactive span {
+      color: #8e8e93;
+    }
+
+    .divider {
+      height: 1px;
+      background: #2a2a2f;
+      margin: 14px 0;
+    }
+
+    .info {
+      font-size: 11px;
+      color: #636366;
+      line-height: 1.5;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="28" height="28" rx="6" fill="#ff3b30"/>
+      <path d="M8 8l12 12M20 8L8 20" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+    <h1>Remove Shorts</h1>
+  </div>
+
+  <div class="toggle-row">
+    <span class="toggle-label">Block Shorts</span>
+    <label class="toggle">
+      <input type="checkbox" id="toggleSwitch" checked />
+      <div class="toggle-track"></div>
+      <div class="toggle-thumb"></div>
+    </label>
+  </div>
+
+  <div class="status active" id="statusText">
+    Shorts are <span>hidden</span>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="info">
+    Hides Shorts from the homepage, search,<br/>
+    subscriptions & sidebar. Redirects<br/>
+    /shorts/ links to regular player.
+  </div>
+
+  <script>
+    const toggle = document.getElementById("toggleSwitch");
+    const statusEl = document.getElementById("statusText");
+
+    function updateStatus(on) {
+      if (on) {
+        statusEl.className = "status active";
+        statusEl.innerHTML = 'Shorts are <span>hidden</span>';
+      } else {
+        statusEl.className = "status inactive";
+        statusEl.innerHTML = 'Shorts are <span>visible</span>';
+      }
+    }
+
+    // Load saved state
+    if (typeof browser !== "undefined" && browser.storage) {
+      browser.storage.local.get("enabled").then((result) => {
+        const on = result.enabled !== false;
+        toggle.checked = on;
+        updateStatus(on);
+      });
+    }
+
+    // Save on toggle
+    toggle.addEventListener("change", () => {
+      const on = toggle.checked;
+      updateStatus(on);
+      if (typeof browser !== "undefined" && browser.storage) {
+        browser.storage.local.set({ enabled: on });
+      }
+    });
+  </script>
+</body>
+</html>

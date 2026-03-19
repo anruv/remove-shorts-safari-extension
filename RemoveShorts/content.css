@@ -1,0 +1,83 @@
+/* ============================================
+   Remove Shorts - Content Styles
+   Hides all YouTube Shorts elements
+   ============================================ */
+
+/* --- Homepage Shorts shelf --- */
+ytd-rich-shelf-renderer[is-shorts],
+ytd-reel-shelf-renderer,
+ytd-shorts-shelf-renderer {
+  display: none !important;
+}
+
+/* --- Sidebar/guide Shorts link --- */
+ytd-guide-entry-renderer a[title="Shorts"],
+ytd-mini-guide-entry-renderer a[title="Shorts"],
+ytd-guide-entry-renderer a[href="/shorts"] {
+  display: none !important;
+}
+
+/* --- Shorts tab on channel pages --- */
+yt-tab-shape[tab-title="Shorts"],
+tp-yt-paper-tab:has(> div[tab-title="Shorts"]) {
+  display: none !important;
+}
+
+/* --- Shorts in search results --- */
+ytd-reel-shelf-renderer,
+ytd-video-renderer:has(a[href*="/shorts/"]) {
+  display: none !important;
+}
+
+/* --- Shorts badge/overlay on thumbnails --- */
+ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"] {
+  display: none !important;
+}
+
+/* --- Video renderers linking to Shorts --- */
+ytd-grid-video-renderer:has(a[href*="/shorts/"]),
+ytd-rich-item-renderer:has(a[href*="/shorts/"]),
+ytd-compact-video-renderer:has(a[href*="/shorts/"]) {
+  display: none !important;
+}
+
+/* --- Shorts remixing UI --- */
+ytd-reel-video-renderer {
+  display: none !important;
+}
+
+/* --- Navigation chips/pills for Shorts --- */
+yt-chip-cloud-chip-renderer:has(yt-formatted-string[title="Shorts"]) {
+  display: none !important;
+}
+
+/* --- Notification menu Shorts entries --- */
+ytd-notification-renderer:has(a[href*="/shorts/"]) {
+  display: none !important;
+}
+
+/* --- Subscriptions feed Shorts --- */
+ytd-rich-section-renderer:has(ytd-reel-shelf-renderer) {
+  display: none !important;
+}
+
+/* --- "Disabled" state: show everything --- */
+body.remove-shorts-disabled ytd-rich-shelf-renderer[is-shorts],
+body.remove-shorts-disabled ytd-reel-shelf-renderer,
+body.remove-shorts-disabled ytd-shorts-shelf-renderer,
+body.remove-shorts-disabled ytd-guide-entry-renderer a[title="Shorts"],
+body.remove-shorts-disabled ytd-mini-guide-entry-renderer a[title="Shorts"],
+body.remove-shorts-disabled ytd-guide-entry-renderer a[href="/shorts"],
+body.remove-shorts-disabled yt-tab-shape[tab-title="Shorts"],
+body.remove-shorts-disabled tp-yt-paper-tab:has(> div[tab-title="Shorts"]),
+body.remove-shorts-disabled ytd-video-renderer:has(a[href*="/shorts/"]),
+body.remove-shorts-disabled ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"],
+body.remove-shorts-disabled ytd-grid-video-renderer:has(a[href*="/shorts/"]),
+body.remove-shorts-disabled ytd-rich-item-renderer:has(a[href*="/shorts/"]),
+body.remove-shorts-disabled ytd-compact-video-renderer:has(a[href*="/shorts/"]),
+body.remove-shorts-disabled ytd-reel-video-renderer,
+body.remove-shorts-disabled yt-chip-cloud-chip-renderer:has(yt-formatted-string[title="Shorts"]),
+body.remove-shorts-disabled ytd-notification-renderer:has(a[href*="/shorts/"]),
+body.remove-shorts-disabled ytd-rich-section-renderer:has(ytd-reel-shelf-renderer) {
+  display: initial !important;
+}
